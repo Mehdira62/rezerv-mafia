@@ -4,203 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>کافه بازی | رزرو مافیا</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
 html{scroll-behavior:smooth;}
-body{
-margin:0;
-font-family:'Orbitron',sans-serif;
-direction:rtl;
-color:white;
-background:black;
-overflow-x:hidden;
-overflow-y:auto;
-}
-
-.video-bg{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-object-fit:cover;
-z-index:-3;
-filter:brightness(0.35);
-}
-
-.overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:radial-gradient(circle at center,#1b0028 0%,#000 70%);
-opacity:0.8;
-z-index:-2;
-}
-
-.smoke{
-position:fixed;
-bottom:-200px;
-width:100%;
-height:400px;
-background:url('https://i.ibb.co/7QpKsCX/smoke.png') repeat-x;
-animation:smokeMove 90s linear infinite;
-opacity:0.15;
-z-index:-1;
-}
-
-.neon{
-color:#ff004c;
-text-shadow:0 0 5px #ff004c,0 0 15px #ff004c,0 0 30px #ff004c,0 0 60px #ff004c;
-}
-
-header{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-position:relative;
-z-index:2;
-padding:20px;
-}
-
-.logo{
-width:120px;
-margin-bottom:20px;
-filter: drop-shadow(0 0 10px #ff004c);
-}
-
+body{margin:0;font-family:'Orbitron',sans-serif;direction:rtl;color:white;background:black;overflow-x:hidden;overflow-y:auto;}
+.video-bg{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-3;filter:brightness(0.35);}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,#1b0028 0%,#000 70%);opacity:0.8;z-index:-2;}
+.smoke{position:fixed;bottom:-200px;width:100%;height:400px;background:url('https://i.ibb.co/7QpKsCX/smoke.png') repeat-x;animation:smokeMove 90s linear infinite;opacity:0.15;z-index:-1;}
+.neon{color:#ff004c;text-shadow:0 0 5px #ff004c,0 0 15px #ff004c,0 0 30px #ff004c,0 0 60px #ff004c;}
+header{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;z-index:2;padding:20px;}
+.logo{width:120px;margin-bottom:20px;filter: drop-shadow(0 0 10px #ff004c);}
 header h1{font-size:65px;margin:0;}
 header p{color:#ccc;margin-top:20px;font-size:20px;}
-
-.btn{
-margin-top:40px;
-padding:15px 45px;
-border:2px solid #ff004c;
-background:transparent;
-color:#ff004c;
-border-radius:40px;
-cursor:pointer;
-transition:0.4s;
-}
-
-.btn:hover{
-background:#ff004c;
-color:black;
-box-shadow:0 0 40px #ff004c;
-}
-
-section{
-padding:100px 12%;
-background:rgba(0,0,0,0.65);
-position:relative;
-z-index:2;
-}
-
-.section-title{
-text-align:center;
-font-size:40px;
-margin-bottom:60px;
-}
-
-.card{
-background:rgba(25,25,35,0.85);
-padding:30px;
-border-radius:20px;
-margin-bottom:30px;
-transition:0.4s;
-border:1px solid #222;
-}
-
-.card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 45px #ff004c;
-border:1px solid #ff004c;
-}
-
-form{
-max-width:650px;
-margin:auto;
-}
-
-input, select, textarea{
-width:100%;
-padding:16px;
-margin:14px 0;
-border:none;
-border-radius:12px;
-background:#12121a;
-color:white;
-font-family:tahoma;
-}
-
-button{
-width:100%;
-padding:18px;
-background:#ff004c;
-border:none;
-border-radius:40px;
-cursor:pointer;
-font-size:18px;
-transition:0.4s;
-}
-
-button:hover{
-box-shadow:0 0 40px #ff004c;
-}
-
-footer{
-text-align:center;
-padding:60px;
-background:black;
-color:#888;
-position:relative;
-z-index:2;
-}
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:30px;
-}
-
-.gallery img{
-  width:100%;
-  border-radius:20px;
-  transition:0.4s;
-  box-shadow:0 0 10px #ff004c;
-}
-
-.gallery img:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 35px #ff004c, 0 0 60px #ff004c;
-  cursor:pointer;
-}
-
-canvas{
-position:absolute;
-top:0;
-left:0;
-pointer-events:none;
-z-index:1;
-width:100%;
-height:100%;
-}
-
-@keyframes smokeMove{
-from{background-position:0 0;}
-to{background-position:12000px 0;}
-}
-
-@media(max-width:768px){
-header h1{font-size:45px;}
-.section-title{font-size:28px;}
-.logo{width:90px;}
-}
+.btn{margin-top:40px;padding:15px 45px;border:2px solid #ff004c;background:transparent;color:#ff004c;border-radius:40px;cursor:pointer;transition:0.4s;}
+.btn:hover{background:#ff004c;color:black;box-shadow:0 0 40px #ff004c;}
+section{padding:100px 12%;background:rgba(0,0,0,0.65);position:relative;z-index:2;}
+.section-title{text-align:center;font-size:40px;margin-bottom:60px;}
+.card{background:rgba(25,25,35,0.85);padding:30px;border-radius:20px;margin-bottom:30px;transition:0.4s;border:1px solid #222;}
+.card:hover{transform:translateY(-10px);box-shadow:0 0 45px #ff004c;border:1px solid #ff004c;}
+form{max-width:650px;margin:auto;}
+input, select, textarea{width:100%;padding:16px;margin:14px 0;border:none;border-radius:12px;background:#12121a;color:white;font-family:tahoma;}
+button{width:100%;padding:18px;background:#ff004c;border:none;border-radius:40px;cursor:pointer;font-size:18px;transition:0.4s;}
+button:hover{box-shadow:0 0 40px #ff004c;}
+footer{text-align:center;padding:60px;background:black;color:#888;position:relative;z-index:2;}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
+.gallery img{width:100%;border-radius:20px;transition:0.4s;box-shadow:0 0 10px #ff004c;}
+.gallery img:hover{transform:scale(1.08);box-shadow:0 0 35px #ff004c,0 0 60px #ff004c;cursor:pointer;}
+canvas{position:absolute;top:0;left:0;pointer-events:none;z-index:1;width:100%;height:100%;}
+@keyframes smokeMove{from{background-position:0 0;}to{background-position:12000px 0;}}
+@media(max-width:768px){header h1{font-size:45px;}.section-title{font-size:28px;}.logo{width:90px;}}
 </style>
 </head>
 <body>
@@ -221,197 +53,130 @@ header h1{font-size:45px;}
 
 <section>
 <h2 class="section-title neon">🔥 سناریوهای بازی</h2>
-
-<div class="card">
-<h3>سناریو کلاسیک</h3>
-<p>مافیا، پدرخوانده، دکتر، کارآگاه، شهروند</p>
-</div>
-
-<div class="card">
-<h3>سناریو تفنگدار</h3>
-<p>رئیس مافیا،گروگانگیر،ناتو،نگهبان،دکتر،کاراگاه،تفنگدار،تکاور،دوشهروند ساده</p>
-</div>
-<div class="card">
-<h3>سناریو کاپو</h3>
-<p>دن مافیا،جادوگر،جلاد،زره ساز،کاراگاه،مضنون،عطار،وارث،دو شهروند ساده</p>
-</div>
-<div class="card">
-<h3>سناریو بازپرس</h3>
-<p>رئیس مافیا،ناتو،شیاد،دکتر،کاراگاه،محقق،بازپرس،روئین تن،دو شهروند ساده</p>
-</div>
+<div class="card"><h3>سناریو کلاسیک</h3><p>مافیا، پدرخوانده، دکتر، کارآگاه، شهروند ساده</p></div>
+<div class="card"><h3>سناریو کاپو</h3><p>رئیس مافیا،جلاد،جادوگر،مضنون،عطار،زرهساز،کاراگاه،شهروند،وارث</p></div>
+<div class="card"><h3> ‌سناریو بازپرس</h3><p>رئیس مافیا،ناتو،شیاد،دکتر،کاراگاه،روئین تن،محقق،بازپرس،شهروند</p></div>
 </section>
+
 <section>
 <h2 class="section-title neon">📸 گالری کافه بازی</h2>
-
 <div class="gallery">
-  <img src="player1.jpg" alt="بازیکن 1">
-  <img src="player2.jpg" alt="بازیکن 2">
-  <img src="cafe1.jpg" alt="محیط کافه">
-  <img src="cafe2.jpg" alt="محیط کافه">
-  <!-- تصاویر بیشتر -->
+  <img src="images/player1.jpg" alt="بازیکن 1">
+  <img src="images/player2.jpg" alt="بازیکن 2">
+  <img src="images/cafe1.jpg" alt="محیط کافه">
+  <img src="images/cafe2.jpg" alt="محیط کافه">
 </div>
 </section>
-
 
 <section id="reserve">
 <h2 class="section-title neon">📅 رزرو در کافه بازی</h2>
+<form id="reserveForm">
+  <input type="text" id="name" placeholder="نام و نام خانوادگی" required>
+  <input type="text" id="phone" placeholder="شماره تماس" required>
+  <input type="number" id="players" placeholder="تعداد بازیکن" required>
+  <select id="scenario">
+    <option>سناریو کلاسیک</option>
+    <option>سناریو کاپو</option>
+    <option> ‌سناریو بازپرس،</option>
+  </select>
+  <input type="date" id="date" required>
+  <input type="time" id="time" required>
+  <textarea id="description" placeholder="توضیحات"></textarea>
+  <button type="submit">ثبت رزرو</button>
+</form>
+</section>
 
-<form onsubmit="sendToWhatsApp(); return false;">
-<input type="text" id="name" placeholder="نام و نام خانوادگی" required>
-<input type="text" id="phone" placeholder="شماره تماس" required>
-<input type="number" id="players" placeholder="تعداد بازیکن" required>
-<select id="scenario">
-<option>سناریو کلاسیک</option>
-<option>سناریو کاپو</option>
-<option>سناریو حرفه‌ای</option>
-</select>
-<input type="date" id="date" required>
-<input type="time" id="time" required>
-<textarea id="description" placeholder="توضیحات"></textarea>
-<button type="submit">ارسال رزرو در واتساپ</button>
+<section>
+<h2 class="section-title neon">🎁 عضویت در باشگاه مشتریان</h2>
+<form id="clubForm">
+  <input type="text" id="clubName" placeholder="نام شما" required><br><br>
+  <input type="tel" id="clubPhone" placeholder="شماره تماس" required><br><br>
+  <button type="submit">ثبت و دریافت تخفیف</button>
 </form>
 </section>
 
 <footer>
 <p>🎭 کافه بازی | تجربه‌ای متفاوت از بازی مافیا</p>
-<p>📸 Instagram: @cafe_bazi</p>
+<p>📸 Instagram: @cafe_baazi</p>
 <p>📞 09133432850</p>
 </footer>
 
-<canvas id="canvas"></canvas>
-<audio id="gunshot" src="gunshot.mp3"></audio>
-<audio id="glass" src="glass_break.mp3"></audio>
-<audio id="explosion" src="explosion.mp3"></audio>
-
 <script>
-let audioEnabled = false;
-document.body.addEventListener('click', ()=>{ audioEnabled = true; });
-document.querySelector('form').addEventListener('submit', ()=>{ audioEnabled = true; });
-
-function sendToWhatsApp(){
-var name = document.getElementById("name").value;
-var phone = document.getElementById("phone").value;
-var players = document.getElementById("players").value;
-var scenario = document.getElementById("scenario").value;
-var date = document.getElementById("date").value;
-var time = document.getElementById("time").value;
-var description = document.getElementById("description").value;
-
-var message = "🎭 رزرو جدید کافه بازی\n\n"
-+ "👤 نام: " + name + "\n"
-+ "📞 تماس: " + phone + "\n"
-+ "👥 تعداد بازیکن: " + players + "\n"
-+ "🎮 سناریو: " + scenario + "\n"
-+ "📅 تاریخ: " + date + "\n"
-+ "⏰ ساعت: " + time + "\n"
-+ "📝 توضیحات: " + description;
-
-var whatsappURL = "https://wa.me/989133432850?text=" + encodeURIComponent(message);
-window.open(whatsappURL, '_blank');
+// ---------- تبدیل میلادی به شمسی دقیق ----------
+function toJalaali(gy, gm, gd) {
+    var g_d_m = [0,31,59,90,120,151,181,212,243,273,304,334];
+    var jy = (gy <= 1600) ? 0 : 979;
+    gy -= (gy <= 1600) ? 621 : 1600;
+    var gy2 = (gm > 2) ? (gy + 1) : gy;
+    var days = 365*gy + Math.floor((gy2+3)/4) - Math.floor((gy2+99)/100) + Math.floor((gy2+399)/400) - 80 + gd + g_d_m[gm-1];
+    jy += 33*Math.floor(days/12053);
+    days %= 12053;
+    jy += 4*Math.floor(days/1461);
+    days %= 1461;
+    if(days > 365){ jy += Math.floor((days-1)/365); days = (days-1)%365; }
+    var jm, jd;
+    if(days < 186){ jm = 1 + Math.floor(days/31); jd = 1 + (days%31); }
+    else{ jm = 7 + Math.floor((days-186)/30); jd = 1 + ((days-186)%30); }
+    jm = jm < 10 ? "0"+jm : jm;
+    jd = jd < 10 ? "0"+jd : jd;
+    return {jy, jm, jd};
 }
 
-// Canvas
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// ---------- ارسال فرم رزرو به تلگرام ----------
+document.getElementById("reserveForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    let name = document.getElementById("name").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let players = document.getElementById("players").value.trim();
+    let scenario = document.getElementById("scenario").value;
+    let date = document.getElementById("date").value;
+    let time = document.getElementById("time").value;
+    let description = document.getElementById("description").value;
 
-let bullets = [];
-let glassShards = [];
-let cracks = [];
+    if(!name || !phone){ alert("لطفا نام و شماره را وارد کنید!"); return; }
 
-function shoot(){
-    if(audioEnabled) document.getElementById("gunshot").play();
-    let y = Math.random()*canvas.height*0.7 + canvas.height*0.15;
-    bullets.push({x:0,y:y,smoke:[],hit:false});
-}
+    let parts = date.split("-");
+    let j = toJalaali(parseInt(parts[0]), parseInt(parts[1]), parseInt(parts[2]));
+    let shamsiDate = `${j.jy}/${j.jm}/${j.jd}`;
 
-function createGlassCracks(x,y){
-    if(audioEnabled) document.getElementById("glass").play();
-    for(let i=0;i<35;i++){
-        let angle = Math.random()*Math.PI*2;
-        let length = Math.random()*canvas.width*0.5 + 100;
-        cracks.push({x:x,y:y,angle:angle,length:length,alpha:1,wiggle: Math.random()*10-5});
-    }
-    for(let i=0;i<70;i++){
-        glassShards.push({x:x,y:y,dx:(Math.random()-0.5)*25,dy:(Math.random()-0.5)*25,size:Math.random()*8+2,alpha:Math.random()*0.8+0.2});
-    }
-    if(audioEnabled) document.getElementById("explosion").play();
-}
+    let token = "7316741794:AAEpKQqdxyltqOSlEq7pLfhwIc9kLupTA90";  // جایگزین با توکن ربات تلگرام
+    let chat_id = "7372822905";  // جایگزین با چت آی دی خودتان
 
-function update(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    let text = `🎭 رزرو جدید در کافه 🎭%0A`
+             + `👤 نام: ${encodeURIComponent(name)}%0A`
+             + `📞 تماس: ${encodeURIComponent(phone)}%0A`
+             + `👥 تعداد بازیکن: ${encodeURIComponent(players)}%0A`
+             + `🎮 سناریو: ${encodeURIComponent(scenario)}%0A`
+             + `📅 تاریخ: ${encodeURIComponent(shamsiDate)}%0A`
+             + `⏰ ساعت: ${encodeURIComponent(time)}%0A`
+             + `📝 توضیحات: ${encodeURIComponent(description)}`;
 
-    bullets.forEach((b)=>{
-        b.x += 25;
-        let gradient = ctx.createLinearGradient(b.x,b.y,b.x+25,b.y);
-        gradient.addColorStop(0,"#ffff00");
-        gradient.addColorStop(0.5,"#ff6600");
-        gradient.addColorStop(1,"#ff0000");
-        ctx.fillStyle = gradient;
-        ctx.shadowColor = "#ff6600";
-        ctx.shadowBlur = 20;
-        ctx.fillRect(b.x,b.y,25,5);
-
-        b.smoke.push({x:b.x-5,y:b.y+2,size:6,alpha:1});
-        b.smoke.forEach(s=>{
-            ctx.fillStyle = `rgba(200,200,200,${s.alpha})`;
-            ctx.beginPath();
-            ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
-            ctx.fill();
-            s.alpha -=0.03;
-            s.size +=0.3;
-        });
-        b.smoke = b.smoke.filter(s=>s.alpha>0);
-
-        if(!b.hit && b.x > canvas.width - 150){
-            b.hit = true;
-            createGlassCracks(b.x,b.y);
-        }
+    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${text}`)
+    .then(res => { 
+        if(res.ok){ alert("✅ رزرو شما ثبت شد!"); document.getElementById("reserveForm").reset(); } 
+        else { alert("❌ خطا در ارسال پیام. دوباره تلاش کنید."); } 
     });
-    bullets = bullets.filter(b=>!b.hit);
-
-    glassShards.forEach((s)=>{
-        ctx.fillStyle = `rgba(180,220,255,${s.alpha})`;
-        ctx.beginPath();
-        ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
-        ctx.fill();
-        s.x += s.dx;
-        s.y += s.dy;
-        s.alpha -=0.02;
-    });
-    glassShards = glassShards.filter(s=>s.alpha>0);
-
-    cracks.forEach(c=>{
-        ctx.strokeStyle = `rgba(255,255,255,${c.alpha})`;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        let segments = 10;
-        for(let i=0;i<=segments;i++){
-            let dx = (Math.cos(c.angle)*c.length/segments)*i;
-            let dy = (Math.sin(c.angle)*c.length/segments)*i + Math.sin(i/2)*c.wiggle;
-            if(i===0) ctx.moveTo(c.x,c.y);
-            else ctx.lineTo(c.x+dx,c.y+dy);
-        }
-        ctx.stroke();
-        c.alpha -=0.015;
-    });
-    cracks = cracks.filter(c=>c.alpha>0);
-
-    requestAnimationFrame(update);
-}
-
-window.addEventListener('resize', ()=>{
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
 });
 
-setInterval(shoot,5000);
-update();
+// ---------- فرم باشگاه مشتریان ----------
+document.getElementById("clubForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    let name = document.getElementById("clubName").value.trim();
+    let phone = document.getElementById("clubPhone").value.trim();
+    if(!name || !phone){ alert("لطفا نام و شماره را وارد کنید!"); return; }
+
+    let token = "7316741794:AAEpKQqdxyltqOSlEq7pLfhwIc9kLupTA90";  // جایگزین با توکن ربات تلگرام
+    let chat_id = "7372822905";  // جایگزین با چت آی دی خودتان
+
+    let text = `🎭 عضویت جدید در باشگاه مشتریان 🎭%0Aنام: ${encodeURIComponent(name)}%0Aشماره: ${encodeURIComponent(phone)}`;
+
+    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${text}`)
+    .then(res => {
+        if(res.ok){ alert("✅ ثبت شد! تخفیف شما فعال شد."); document.getElementById("clubForm").reset(); } 
+        else { alert("❌ خطا در ارسال پیام. دوباره تلاش کنید."); }
+    });
+});
 </script>
 
 </body>
 </html>
-
-
-
