@@ -16,16 +16,17 @@ header{height:100vh;display:flex;flex-direction:column;justify-content:center;al
 .logo{width:120px;margin-bottom:20px;filter: drop-shadow(0 0 10px #ff004c);}
 header h1{font-size:65px;margin:0;}
 header p{color:#ccc;margin-top:20px;font-size:20px;}
-.btn{margin-top:40px;padding:15px 45px;border:2px solid #ff004c;background:transparent;color:#ff004c;border-radius:40px;cursor:pointer;transition:0.4s;}
+.btn{margin-top:20px;padding:12px 25px;border:2px solid #ff004c;background:transparent;color:#ff004c;border-radius:40px;cursor:pointer;transition:0.4s;}
 .btn:hover{background:#ff004c;color:black;box-shadow:0 0 40px #ff004c;}
-section{padding:100px 12%;background:rgba(0,0,0,0.65);position:relative;z-index:2;}
+section{padding:80px 12%;background:rgba(0,0,0,0.65);position:relative;z-index:2;}
 .section-title{text-align:center;font-size:40px;margin-bottom:60px;}
 .card{background:rgba(25,25,35,0.85);padding:30px;border-radius:20px;margin-bottom:30px;transition:0.4s;border:1px solid #222;}
 .card:hover{transform:translateY(-10px);box-shadow:0 0 45px #ff004c;border:1px solid #ff004c;}
 form{max-width:650px;margin:auto;}
-input, select, textarea{width:100%;padding:16px;margin:14px 0;border:none;border-radius:12px;background:#12121a;color:white;font-family:tahoma;}
-button{width:100%;padding:18px;background:#ff004c;border:none;border-radius:40px;cursor:pointer;font-size:18px;transition:0.4s;}
-button:hover{box-shadow:0 0 40px #ff004c;}
+input{width:100%;padding:16px;margin:14px 0;border:none;border-radius:12px;background:#12121a;color:white;font-family:tahoma;}
+.sanButton{width:100%;padding:18px;background:#ff004c;border:none;border-radius:40px;cursor:pointer;font-size:18px;transition:0.4s;margin-bottom:10px;}
+.sanButton:hover{box-shadow:0 0 40px #ff004c;}
+.sanButton:disabled{background:#555;color:#aaa;cursor:not-allowed;box-shadow:none;}
 footer{text-align:center;padding:60px;background:black;color:#888;position:relative;z-index:2;}
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
 .gallery img{width:100%;border-radius:20px;transition:0.4s;box-shadow:0 0 10px #ff004c;}
@@ -40,7 +41,6 @@ canvas{position:absolute;top:0;left:0;pointer-events:none;z-index:1;width:100%;h
 <video autoplay muted loop class="video-bg">
 <source src="https://cdn.coverr.co/videos/coverr-people-playing-cards-6994/1080p.mp4" type="video/mp4">
 </video>
-
 <div class="overlay"></div>
 <div class="smoke"></div>
 
@@ -69,30 +69,10 @@ canvas{position:absolute;top:0;left:0;pointer-events:none;z-index:1;width:100%;h
 </section>
 
 <section id="reserve">
-<h2 class="section-title neon">📅 رزرو در کافه بازی</h2>
-<form id="reserveForm">
-  <input type="text" id="name" placeholder="نام و نام خانوادگی" required>
-  <input type="text" id="phone" placeholder="شماره تماس" required>
-  <input type="number" id="players" placeholder="تعداد بازیکن" required>
-  <select id="scenario">
-    <option>سناریو کلاسیک</option>
-    <option>سناریو کاپو</option>
-    <option> ‌سناریو بازپرس،</option>
-  </select>
-  <input type="date" id="date" required>
-  <input type="time" id="time" required>
-  <textarea id="description" placeholder="توضیحات"></textarea>
-  <button type="submit">ثبت رزرو</button>
-</form>
-</section>
-
-<section>
-<h2 class="section-title neon">🎁 عضویت در باشگاه مشتریان</h2>
-<form id="clubForm">
-  <input type="text" id="clubName" placeholder="نام شما" required><br><br>
-  <input type="tel" id="clubPhone" placeholder="شماره تماس" required><br><br>
-  <button type="submit">ثبت و دریافت تخفیف</button>
-</form>
+<h2 class="section-title neon">📅 رزرو سانس‌ها</h2>
+<input type="text" id="name" placeholder="نام و نام خانوادگی">
+<input type="text" id="phone" placeholder="شماره تماس">
+<div id="sessions"></div>
 </section>
 
 <footer>
@@ -102,83 +82,42 @@ canvas{position:absolute;top:0;left:0;pointer-events:none;z-index:1;width:100%;h
 </footer>
 
 <script>
-// ---------- تبدیل میلادی به شمسی دقیق ----------
-function toJalaali(gy, gm, gd) {
-    var g_d_m = [0,31,59,90,120,151,181,212,243,273,304,334];
-    var jy = (gy <= 1600) ? 0 : 979;
-    gy -= (gy <= 1600) ? 621 : 1600;
-    var gy2 = (gm > 2) ? (gy + 1) : gy;
-    var days = 365*gy + Math.floor((gy2+3)/4) - Math.floor((gy2+99)/100) + Math.floor((gy2+399)/400) - 80 + gd + g_d_m[gm-1];
-    jy += 33*Math.floor(days/12053);
-    days %= 12053;
-    jy += 4*Math.floor(days/1461);
-    days %= 1461;
-    if(days > 365){ jy += Math.floor((days-1)/365); days = (days-1)%365; }
-    var jm, jd;
-    if(days < 186){ jm = 1 + Math.floor(days/31); jd = 1 + (days%31); }
-    else{ jm = 7 + Math.floor((days-186)/30); jd = 1 + ((days-186)%30); }
-    jm = jm < 10 ? "0"+jm : jm;
-    jd = jd < 10 ? "0"+jd : jd;
-    return {jy, jm, jd};
-}
+// ---------- تعریف سانس ها ----------
+const sessionTimes = [
+    "18:00", "19:30", "21:00", "22:30"
+];
+const maxCapacity = 10; // ظرفیت هر سانس
+let sessionCounts = Array(sessionTimes.length).fill(0); // شمارنده رزرو
 
-// ---------- ارسال فرم رزرو به تلگرام ----------
-document.getElementById("reserveForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    let name = document.getElementById("name").value.trim();
-    let phone = document.getElementById("phone").value.trim();
-    let players = document.getElementById("players").value.trim();
-    let scenario = document.getElementById("scenario").value;
-    let date = document.getElementById("date").value;
-    let time = document.getElementById("time").value;
-    let description = document.getElementById("description").value;
+const sessionsDiv = document.getElementById("sessions");
+sessionTimes.forEach((time, i)=>{
+    const btn = document.createElement("button");
+    btn.textContent = `رزرو سانس ${time}`;
+    btn.className = "sanButton";
+    btn.addEventListener("click", ()=>{
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        if(!name || !phone){ alert("لطفا نام و شماره تماس را وارد کنید!"); return; }
+        if(sessionCounts[i]>=maxCapacity){ 
+            alert("⚠️ این سانس پر شده است!"); 
+            btn.disabled = true; 
+            return; 
+        }
 
-    if(!name || !phone){ alert("لطفا نام و شماره را وارد کنید!"); return; }
+        sessionCounts[i]++;
+        if(sessionCounts[i]>=maxCapacity){ btn.disabled = true; }
 
-    let parts = date.split("-");
-    let j = toJalaali(parseInt(parts[0]), parseInt(parts[1]), parseInt(parts[2]));
-    let shamsiDate = `${j.jy}/${j.jm}/${j.jd}`;
+        // ارسال پیام به تلگرام
+        const token = "7316741794:AAEpKQqdxyltqOSlEq7pLfhwIc9kLupTA90";
+        const chat_id = "-5285209684";
+        const text = `🎭 رزرو جدید در کافه 🎭%0A👤 نام: ${encodeURIComponent(name)}%0A📞 تماس: ${encodeURIComponent(phone)}%0A⏰ سانس: ${encodeURIComponent(time)}`;
+        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${text}`)
+        .then(res=>{ if(res.ok){ alert("✅ رزرو شما ثبت شد!"); } else { alert("❌ خطا در ثبت رزرو."); } });
 
-    let token = "7316741794:AAEpKQqdxyltqOSlEq7pLfhwIc9kLupTA90";  // جایگزین با توکن ربات تلگرام
-    let chat_id = "7372822905";  // جایگزین با چت آی دی خودتان
-
-    let text = `🎭 رزرو جدید در کافه 🎭%0A`
-             + `👤 نام: ${encodeURIComponent(name)}%0A`
-             + `📞 تماس: ${encodeURIComponent(phone)}%0A`
-             + `👥 تعداد بازیکن: ${encodeURIComponent(players)}%0A`
-             + `🎮 سناریو: ${encodeURIComponent(scenario)}%0A`
-             + `📅 تاریخ: ${encodeURIComponent(shamsiDate)}%0A`
-             + `⏰ ساعت: ${encodeURIComponent(time)}%0A`
-             + `📝 توضیحات: ${encodeURIComponent(description)}`;
-
-    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${text}`)
-    .then(res => { 
-        if(res.ok){ alert("✅ رزرو شما ثبت شد!"); document.getElementById("reserveForm").reset(); } 
-        else { alert("❌ خطا در ارسال پیام. دوباره تلاش کنید."); } 
     });
-});
-
-// ---------- فرم باشگاه مشتریان ----------
-document.getElementById("clubForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    let name = document.getElementById("clubName").value.trim();
-    let phone = document.getElementById("clubPhone").value.trim();
-    if(!name || !phone){ alert("لطفا نام و شماره را وارد کنید!"); return; }
-
-    let token = "7316741794:AAEpKQqdxyltqOSlEq7pLfhwIc9kLupTA90";  // جایگزین با توکن ربات تلگرام
-    let chat_id = "7372822905";  // جایگزین با چت آی دی خودتان
-
-    let text = `🎭 عضویت جدید در باشگاه مشتریان 🎭%0Aنام: ${encodeURIComponent(name)}%0Aشماره: ${encodeURIComponent(phone)}`;
-
-    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${text}`)
-    .then(res => {
-        if(res.ok){ alert("✅ ثبت شد! تخفیف شما فعال شد."); document.getElementById("clubForm").reset(); } 
-        else { alert("❌ خطا در ارسال پیام. دوباره تلاش کنید."); }
-    });
+    sessionsDiv.appendChild(btn);
 });
 </script>
 
 </body>
 </html>
-
-
