@@ -23,16 +23,18 @@ section{padding:100px 12%;background:rgba(0,0,0,0.65);position:relative;z-index:
 .card{background:rgba(25,25,35,0.85);padding:30px;border-radius:20px;margin-bottom:30px;transition:0.4s;border:1px solid #222;}
 .card:hover{transform:translateY(-10px);box-shadow:0 0 45px #ff004c;border:1px solid #ff004c;}
 form{max-width:650px;margin:auto;}
-input, textarea{width:100%;padding:16px;margin:14px 0;border:none;border-radius:12px;background:#12121a;color:white;font-family:tahoma;}
+input, select, textarea{width:100%;padding:16px;margin:14px 0;border:none;border-radius:12px;background:#12121a;color:white;font-family:tahoma;}
 button{width:100%;padding:18px;background:#ff004c;border:none;border-radius:40px;cursor:pointer;font-size:18px;transition:0.4s;}
 button:hover{box-shadow:0 0 40px #ff004c;}
 footer{text-align:center;padding:60px;background:black;color:#888;position:relative;z-index:2;}
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
 .gallery img{width:100%;border-radius:20px;transition:0.4s;box-shadow:0 0 10px #ff004c;}
 .gallery img:hover{transform:scale(1.08);box-shadow:0 0 35px #ff004c,0 0 60px #ff004c;cursor:pointer;}
-.sans-btn{padding:12px 25px;margin:10px;border:2px solid #ff004c;background:transparent;color:#ff004c;border-radius:30px;cursor:pointer;transition:0.4s;font-size:18px;}
-.sans-btn:hover{background:#ff004c;color:black;box-shadow:0 0 30px #ff004c;}
 canvas{position:absolute;top:0;left:0;pointer-events:none;z-index:1;width:100%;height:100%;}
+.sans-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:30px;}
+.sans-container button{width:100%;padding:18px;border-radius:40px;font-size:18px;background:#12121a;color:#ff004c;border:2px solid #ff004c;transition:0.4s;cursor:pointer;}
+.sans-container button:hover{background:#ff004c;color:black;box-shadow:0 0 40px #ff004c;}
+.sans-container button:disabled{background:#555;color:#ccc;border:2px solid #555;cursor:not-allowed;}
 @keyframes smokeMove{from{background-position:0 0;}to{background-position:12000px 0;}}
 @media(max-width:768px){header h1{font-size:45px;}.section-title{font-size:28px;}.logo{width:90px;}}
 </style>
@@ -57,7 +59,7 @@ canvas{position:absolute;top:0;left:0;pointer-events:none;z-index:1;width:100%;h
 <h2 class="section-title neon">🔥 سناریوهای بازی</h2>
 <div class="card"><h3>سناریو کلاسیک</h3><p>مافیا، پدرخوانده، دکتر، کارآگاه، شهروند ساده</p></div>
 <div class="card"><h3>سناریو کاپو</h3><p>رئیس مافیا،جلاد،جادوگر،مضنون،عطار،زرهساز،کاراگاه،شهروند،وارث</p></div>
-<div class="card"><h3>سناریو بازپرس</h3><p>رئیس مافیا،ناتو،شیاد،دکتر،کاراگاه،روئین تن،محقق،بازپرس،شهروند</p></div>
+<div class="card"><h3> ‌سناریو بازپرس</h3><p>رئیس مافیا،ناتو،شیاد،دکتر،کاراگاه،روئین تن،محقق،بازپرس،شهروند</p></div>
 </section>
 
 <section>
@@ -71,15 +73,14 @@ canvas{position:absolute;top:0;left:0;pointer-events:none;z-index:1;width:100%;h
 </section>
 
 <section id="reserve">
-<h2 class="section-title neon">📅 رزرو در کافه بازی</h2>
+<h2 class="section-title neon">📅 رزرو سانس‌ها</h2>
 <input type="text" id="name" placeholder="نام و نام خانوادگی" required>
 <input type="text" id="phone" placeholder="شماره تماس" required>
-<div id="slots">
-  <button class="sans-btn" data-time="18:00">سانس 18:00</button>
-  <button class="sans-btn" data-time="19:30">سانس 19:30</button>
-  <button class="sans-btn" data-time="21:00">سانس 21:00</button>
-  <button class="sans-btn" data-time="22:30">سانس 22:30</button>
+<div class="sans-container" id="sansContainer">
+  <!-- سانس‌ها با JS اضافه می‌شوند -->
 </div>
+<p style="margin-top:20px;color:#ccc;">پس از رزرو، روی لینک زیر کلیک کنید تا پیام تایید را در تلگرام دریافت کنید:</p>
+<a id="telegramLink" href="#" target="_blank" style="color:#ff004c;font-weight:bold;">💌 دریافت پیام تایید</a>
 </section>
 
 <footer>
@@ -89,55 +90,47 @@ canvas{position:absolute;top:0;left:0;pointer-events:none;z-index:1;width:100%;h
 </footer>
 
 <script>
-// ---------- تنظیمات ----------
-const token = "توکن_ربات_شما"; // 7316741794:AAEpKQqdxyltqOSlEq7pLfhwIc9kLupTA90
-const chat_id = "-5285209684"; // آیدی گروه تلگرام (با -100 شروع می‌شود)
-const capacityPerSlot = 10; // ظرفیت هر سانس
-let slotCount = { "18:00":0, "19:30":0, "21:00":0, "22:30":0 };
+// ---------- سانس‌ها و ظرفیت ----------
+const sanses = [
+  {time:"18:00", reserved:0},
+  {time:"19:30", reserved:0},
+  {time:"21:00", reserved:0},
+  {time:"22:30", reserved:0},
+  {time:"24:00", reserved:0}
+];
+const maxPlayersPerSans = 10;
+const sansContainer = document.getElementById("sansContainer");
 
-// ---------- ارسال پیام ----------
-function sendTelegramMessage(message){
-  fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`)
-  .then(res=>res.json())
-  .then(r=>console.log(r));
-}
+// ---------- اضافه کردن دکمه‌های سانس ----------
+sanses.forEach((s, idx)=>{
+  const btn = document.createElement("button");
+  btn.textContent = s.time;
+  btn.disabled = s.reserved >= maxPlayersPerSans;
+  btn.addEventListener("click", ()=>{
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    if(!name || !phone){ alert("لطفا نام و شماره را وارد کنید!"); return; }
 
-// ---------- رویداد دکمه سانس ----------
-document.querySelectorAll(".sans-btn").forEach(btn=>{
-  btn.addEventListener("click", function(){
-    let name = document.getElementById("name").value.trim();
-    let phone = document.getElementById("phone").value.trim();
-    let time = btn.dataset.time;
+    // افزایش تعداد رزرو
+    s.reserved++;
+    btn.disabled = s.reserved >= maxPlayersPerSans;
 
-    if(!name || !phone){
-      alert("لطفا نام و شماره تماس را وارد کنید!");
-      return;
-    }
-
-    if(slotCount[time]>=capacityPerSlot){
-      alert("این سانس پر شده است!");
-      return;
-    }
-
-    // افزایش شمارنده
-    slotCount[time]++;
-
-    // ارسال پیام به گروه
-    let groupMessage = `🎭 رزرو جدید در کافه 🎭\n👤 نام: ${name}\n📞 شماره: ${phone}\n⏰ سانس: ${time}\n👥 ظرفیت پر شده: ${slotCount[time]}/${capacityPerSlot}`;
-    sendTelegramMessage(groupMessage);
-
-    // ارسال پیام تایید به مشتری
-    let customerMessage = `✅ رزرو شما برای سانس ${time} ثبت شد!\n🎭 منتظر شما هستیم.`;
-    sendTelegramMessage(customerMessage); // برای پیام به مشتری باید chat_id مشتری باشه (در بات تلگرام امکان‌پذیر است)
-
-    alert("رزرو شما ثبت شد!");
-
-    // غیرفعال کردن دکمه اگر سانس پر شود
-    if(slotCount[time]>=capacityPerSlot){
-      btn.disabled = true;
-      btn.style.opacity = 0.5;
-    }
+    // ارسال پیام به گروه تلگرام
+    const token = "7316741794:AAEpKQqdxyltqOSlEq7pLfhwIc9kLupTA90"; // جایگزین توکن
+    const chat_id = "-5285209684"; // جایگزین با آی دی گروه تلگرام
+    const text = `🎭 رزرو جدید در کافه 🎭%0A👤 نام: ${encodeURIComponent(name)}%0A📞 تماس: ${encodeURIComponent(phone)}%0A⏰ سانس: ${encodeURIComponent(s.time)}%0A👥 1 نفر`;
+    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${text}`)
+    .then(res=>{
+      if(res.ok){
+        alert("✅ رزرو شما ثبت شد!");
+        document.getElementById("name").value="";
+        document.getElementById("phone").value="";
+        // لینک بات برای پیام تایید
+        document.getElementById("telegramLink").href = `https://t.me/YourCafeBot?start=${encodeURIComponent(s.time)}`;
+      } else { alert("❌ خطا در ارسال پیام به گروه. دوباره تلاش کنید."); }
+    });
   });
+  sansContainer.appendChild(btn);
 });
 </script>
 
